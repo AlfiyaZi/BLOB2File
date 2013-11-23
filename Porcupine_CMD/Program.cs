@@ -106,7 +106,7 @@ namespace Porcupine_CMD
             {
                 //Create a new filestream
                 //Replace the path with the desired location where you want the files to be written
-                FileStream _fs = new FileStream("C:\\Temp\\ucdportaldata\\" + _fname, FileMode.Create, FileAccess.Write);
+                FileStream _fs = new FileStream("C:\\Temp\\myfiledump\\" + _fname, FileMode.Create, FileAccess.Write);
 
                 //Writing the stream to file
                 _fs.Write(_blob, 0, _blob.Length);
