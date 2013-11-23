@@ -33,7 +33,7 @@ namespace Porcupine_CMD
             Console.WriteLine("Project Porcupine - Console Edition");
             
             //Initialize the file counter
-            int counter = 0;
+            int counter = 1;
             
             //Initializing the SQL Connection
             //Since the SQL Server is local, and Auth is Windows, no credentials are required in the connection string
