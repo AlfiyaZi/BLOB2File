@@ -1,0 +1,6 @@
+C:\Data\Projects\XDSite\SESMigrator\Porcupine_CMD\Porcupine_CMD\bin\Debug\Porcupine_CMD.exe.config
+C:\Data\Projects\XDSite\SESMigrator\Porcupine_CMD\Porcupine_CMD\bin\Debug\Porcupine_CMD.exe
+C:\Data\Projects\XDSite\SESMigrator\Porcupine_CMD\Porcupine_CMD\bin\Debug\Porcupine_CMD.pdb
+C:\Data\Projects\XDSite\SESMigrator\Porcupine_CMD\Porcupine_CMD\obj\Debug\Porcupine_CMD.csprojResolveAssemblyReference.cache
+C:\Data\Projects\XDSite\SESMigrator\Porcupine_CMD\Porcupine_CMD\obj\Debug\Porcupine_CMD.exe
+C:\Data\Projects\XDSite\SESMigrator\Porcupine_CMD\Porcupine_CMD\obj\Debug\Porcupine_CMD.pdb
