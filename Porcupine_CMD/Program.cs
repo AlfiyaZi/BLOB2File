@@ -1,4 +1,15 @@
-﻿using System;
+﻿/* BLOB2File / Project Codenamed "Porcupine"
+ * Type: Console Application
+ * 
+ * Assumptions:
+ * 1. The BLOBs have a separate column
+ * 2. The filenames with their extensions, i.e. full filenames are stored in another column
+ * 3. Both columns are in the same table
+ * 
+ * Authors: Siddharth Mankad, Vivek Shrinivasan
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,12 +26,17 @@ namespace Porcupine_CMD
         {
             //Initializing SQL commands
             string tblFileblob = "SELECT fileName, fileContent FROM dbo.sueFile";
+
+            //Sample query to test first 10 files before jumping in and parsing the whole table which could have 1000+ rows
             //string tblFile10 = "SELECT TOP 10 fileName, fileContent FROM dbo.sueFile";
 
             Console.WriteLine("Project Porcupine - Console Edition");
             
+            //Initialize the file counter
+            int counter = 0;
             
             //Initializing the SQL Connection
+            //Since the SQL Server is local, and Auth is Windows, no credentials are required in the connection string
             SqlConnection con = new SqlConnection("Data Source=.\\SQLEXP2008R2;" + "Initial Catalog=ucdportal;" + "Integrated Security=True");
 
             //Opening up the connection
@@ -36,7 +52,7 @@ namespace Porcupine_CMD
             }
 
             //Get the resultset
-            Console.WriteLine("Firing command to database...\n");
+            Console.WriteLine("Firing command to the database...\n");
             Console.WriteLine("Attempting to fetch ALL BLOBs...\n");
             try
             {
@@ -44,27 +60,34 @@ namespace Porcupine_CMD
                 SqlCommand com = new SqlCommand(tblFileblob.ToString(), con);
                 rdr = com.ExecuteReader();
 
-                //Once the records/stream(s) have been fetched, we will start parsing
+                //Once the record has been fetched, we will process that
                 while (rdr.Read())
                 {
+                    //Testing the connection with a sample console output of the filenames
                     //Console.WriteLine((rdr["fileName"]).ToString());
+
                     if(BLOB2File(rdr["fileName"].ToString(),(byte[])rdr["fileContent"]))
                     {
-                        Console.WriteLine(rdr["fileName"].ToString() + " written.");
+                        //if the file write method is successful, it will return true and the following code will be executed
+                        Console.WriteLine(counter.ToString()+". "+rdr["fileName"].ToString() + " written.");
+                        counter++;
                     }
                     else
                     {
-                        Console.WriteLine(rdr["fileName"].ToString() + " not written.");
+                        //if the file write method fails, it will return false and the following code will be executed
+                        Console.WriteLine(counter.ToString() + ". " + rdr["fileName"].ToString() + " not written.");
+                        counter++;
                     }
                 }
 
-                //Closing the connection
+                //Closing the connection - cleaning up
                 try
                 {
                     con.Close();
                 }
                 catch (Exception e)
                 {
+                    //Any errors will be outputted to the console
                     Console.WriteLine(e.ToString());
                 }
             }
@@ -82,6 +105,7 @@ namespace Porcupine_CMD
             try 
             {
                 //Create a new filestream
+                //Replace the path with the desired location where you want the files to be written
                 FileStream _fs = new FileStream("C:\\Temp\\ucdportaldata\\" + _fname, FileMode.Create, FileAccess.Write);
 
                 //Writing the stream to file
@@ -95,9 +119,10 @@ namespace Porcupine_CMD
             }
             catch (Exception e)
             {
+                //Any errors will be outputted to the console
                 Console.WriteLine(e.ToString());
             }
-            //Seem to be a problem
+            //If there's a problem, i.e. it fails
             return false;
         }
     }
