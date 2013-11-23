@@ -37,7 +37,7 @@ namespace Porcupine_CMD
             
             //Initializing the SQL Connection
             //Since the SQL Server is local, and Auth is Windows, no credentials are required in the connection string
-            SqlConnection con = new SqlConnection("Data Source=.\\SQLEXP2008R2;" + "Initial Catalog=ucdportal;" + "Integrated Security=True");
+            SqlConnection con = new SqlConnection("Data Source=.\\SQLEXP2008R2;" + "Initial Catalog=mydatabase;" + "Integrated Security=True");
 
             //Opening up the connection
             try
